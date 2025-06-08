@@ -1,0 +1,185 @@
+<!DOCTYPE html> 
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Problema 40</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-dark-5@1.1.3/dist/css/bootstrap-dark.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-dark text-white">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Métodos Numéricos</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="problema37.html">Problema 37</a></li>
+          <li class="nav-item"><a class="nav-link" href="problema39.html">Problema 39</a></li>
+          <li class="nav-item"><a class="nav-link active" href="problema40.html">Problema 40</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+<div class="container py-5">
+  <h1 class="text-center text-info">Problema 40: Velocidad de un objeto en caída</h1>
+  <img src="imagenes/p3.png" 
+     class="img-fluid mx-auto d-block rounded" 
+     style="max-height: 300px; object-fit: cover;" 
+     alt="...">
+  <p class="mt-4">
+    Se analiza la velocidad de un objeto en caída libre con resistencia cuadrática, modelado por la ecuación diferencial:
+    <code>m dv/dt = -mg + kv²</code><br>
+    Condiciones:
+    <ul>
+      <li><strong>m</strong> = 5 kg</li>
+      <li><strong>k</strong> = 0.05 kg/m</li>
+      <li><strong>g</strong> = 9.81 m/s²</li>
+      <li><strong>v(0)</strong> = 0 m/s</li>
+      <li><strong>Intervalo:</strong> 0 ≤ t ≤ 15 s, con paso h = 0.5</li>
+    </ul>
+  </p>
+
+  <h3 class="text-primary">Método de Heun</h3>
+  <p>Se aplica Heun como predictor-corrector para aproximar la velocidad:</p>
+  <div class="table-responsive">
+    <table class="table table-dark table-bordered">
+      <thead>
+        <tr><th>t</th><th>v(t)</th><th>k1</th><th>k2</th></tr>
+      </thead>
+      <tbody id="tablaHeun"></tbody>
+    </table>
+  </div>
+
+  <h3 class="text-primary">Método de Runge-Kutta de 4to orden</h3>
+  <p>RK4 proporciona una solución más precisa utilizando 4 pendientes por paso.</p>
+  <div class="table-responsive">
+    <table class="table table-dark table-bordered">
+      <thead>
+        <tr><th>t</th><th>v(t)</th><th>k1</th><th>k2</th><th>k3</th><th>k4</th></tr>
+      </thead>
+      <tbody id="tablaRK4"></tbody>
+    </table>
+  </div>
+
+  <h3 class="text-primary">Comparación de Resultados</h3>
+<div class="table-responsive">
+  <table class="table table-dark table-bordered">
+    <thead>
+      <tr>
+        <th>t</th>
+        <th>Heun</th>
+        <th>RK4</th>
+        <th>Diferencia |RK4 - Heun|</th>
+      </tr>
+    </thead>
+    <tbody id="tablaComparacion"></tbody>
+  </table>
+</div>
+
+
+  <h3 class="text-primary">Gráfico Comparativo</h3>
+  <canvas id="graficoVelocidad"></canvas>
+
+  <h3 class="text-primary">Conclusión</h3>
+  <p>
+    Se observa que ambos métodos numéricos modelan adecuadamente la velocidad del objeto en caída. La velocidad se estabiliza hacia un valor terminal debido a la fuerza de resistencia del aire. El método de Runge-Kutta proporciona una mejor precisión en comparación con Heun, aunque a un mayor costo computacional.
+  </p>
+
+  <a href="index.html" class="btn btn-outline-info mt-4">Volver al inicio</a>
+</div>
+
+<script>
+const g = 9.81, m = 5, k = 0.05, h = 0.5, tMax = 15;
+function f(v) { return (-g + (k / m) * v * v); }
+
+let t = 0, vHeun = 0, vRK4 = 0;
+const datosT = [], datosHeun = [], datosRK4 = [];
+
+const tablaHeun = document.getElementById("tablaHeun");
+const tablaRK4 = document.getElementById("tablaRK4");
+
+while (t <= tMax) {
+  datosT.push(t);
+  datosHeun.push(vHeun);
+  datosRK4.push(vRK4);
+
+  // Heun
+  let k1H = f(vHeun);
+  let vPred = vHeun + h * k1H;
+  let k2H = f(vPred);
+  let vHeunNext = vHeun + (h / 2) * (k1H + k2H);
+
+  tablaHeun.innerHTML += `
+    <tr><td>${t.toFixed(1)}</td><td>${vHeun.toFixed(3)}</td>
+    <td>${k1H.toFixed(3)}</td><td>${k2H.toFixed(3)}</td></tr>`;
+
+  vHeun = vHeunNext;
+
+  // RK4
+  let k1 = f(vRK4);
+  let k2 = f(vRK4 + 0.5 * h * k1);
+  let k3 = f(vRK4 + 0.5 * h * k2);
+  let k4 = f(vRK4 + h * k3);
+  let vRK4Next = vRK4 + (h / 6) * (k1 + 2 * k2 + 2 * k3 + k4);
+
+  tablaRK4.innerHTML += `
+    <tr><td>${t.toFixed(1)}</td><td>${vRK4.toFixed(3)}</td>
+    <td>${(h * k1).toFixed(3)}</td><td>${(h * k2).toFixed(3)}</td>
+    <td>${(h * k3).toFixed(3)}</td><td>${(h * k4).toFixed(3)}</td></tr>`;
+
+  vRK4 = vRK4Next;
+
+  t += h;
+}
+
+new Chart(document.getElementById('graficoVelocidad'), {
+  type: 'line',
+  data: {
+    labels: datosT,
+    datasets: [
+      {
+        label: 'Heun',
+        data: datosHeun,
+        borderColor: 'orange',
+        fill: false
+      },
+      {
+        label: 'RK4',
+        data: datosRK4,
+        borderColor: 'cyan',
+        fill: false
+      }
+    ]
+  },
+  options: {
+    scales: {
+      x: { title: { display: true, text: 'Tiempo (s)' } },
+      y: { title: { display: true, text: 'Velocidad (m/s)' } }
+    },
+    plugins: {
+      legend: { labels: { color: 'white' } }
+    }
+  }
+});
+
+const tablaComparacion = document.getElementById("tablaComparacion");
+
+for (let i = 0; i < datosT.length; i++) {
+  let diff = Math.abs(datosRK4[i] - datosHeun[i]);
+  tablaComparacion.innerHTML += `
+    <tr>
+      <td>${datosT[i].toFixed(1)}</td>
+      <td>${datosHeun[i].toFixed(3)}</td>
+      <td>${datosRK4[i].toFixed(3)}</td>
+      <td>${diff.toFixed(4)}</td>
+    </tr>
+  `;
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Problema 39</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-dark-5@1.1.3/dist/css/bootstrap-dark.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-dark text-white">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Métodos Numéricos</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Inicio</a>
+            </li>
+          <li class="nav-item">
+            <a class="nav-link" href="problema37.html">Problema 37</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="problema39.html">Problema 39</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="problema40.html">Problema 40</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container py-5">
+    <h1 class="text-center text-info">Problema 39</h1>
+    <img src="imagenes/p2.jpg" 
+     class="img-fluid mx-auto d-block rounded" 
+     style="max-height: 300px; object-fit: cover;" 
+     alt="...">
+
+    <p class="mt-4">
+      Se analiza el crecimiento tumoral modelado por la ecuación:
+      <code>dA/dt = α·A·[1 − (A/k)^v]</code>, con parámetros:
+      <strong>α = 0.8, k = 60, v = 0.25, A(0) = 1 mm²</strong>, en el intervalo
+      <strong>0 ≤ t ≤ 30</strong>, con paso <strong>h = 2</strong>. Se resuelve mediante los métodos de Heun y Runge-Kutta de 4.º orden.
+    </p>
+
+    <h3 class="text-primary">Método de Heun (h = 2)</h3>
+    <div class="table-responsive">
+      <table class="table table-dark table-bordered text-center">
+        <thead>
+        <tr><th>t</th><th>A(t)</th><th>k₁</th><th>k₂</th><th>h</th></tr>
+        </thead>
+        <tbody>
+        <tr><td>0</td><td>1.00000</td><td>0.51256</td><td>0.92568</td><td>2</td></tr>
+        <tr><td>2</td><td>2.43824</td><td>1.07481</td><td>1.74025</td><td>2</td></tr>
+        <tr><td>4</td><td>5.25330</td><td>1.91655</td><td>2.73449</td><td>2</td></tr>
+        <tr><td>6</td><td>9.90435</td><td>2.87298</td><td>3.57266</td><td>2</td></tr>
+        <tr><td>8</td><td>16.34998</td><td>3.62962</td><td>3.92832</td><td>2</td></tr>
+        <tr><td>10</td><td>23.90792</td><td>3.93033</td><td>3.73536</td><td>2</td></tr>
+        <tr><td>12</td><td>31.57361</td><td>3.74557</td><td>3.17915</td><td>2</td></tr>
+        <tr><td>14</td><td>38.49832</td><td>3.23388</td><td>2.50265</td><td>2</td></tr>
+        <tr><td>16</td><td>44.23485</td><td>2.59664</td><td>1.87040</td><td>2</td></tr>
+        <tr><td>18</td><td>48.70189</td><td>1.98002</td><td>1.35181</td><td>2</td></tr>
+        <tr><td>20</td><td>52.03371</td><td>1.45638</td><td>0.95634</td><td>2</td></tr>
+        <tr><td>22</td><td>54.44643</td><td>1.04491</td><td>0.66738</td><td>2</td></tr>
+        <tr><td>24</td><td>56.15873</td><td>0.73701</td><td>0.46166</td><td>2</td></tr>
+        <tr><td>26</td><td>57.35739</td><td>0.51381</td><td>0.31753</td><td>2</td></tr>
+        <tr><td>28</td><td>58.18873</td><td>0.35537</td><td>0.21757</td><td>2</td></tr>
+        </tbody>
+
+      </table>
+    </div>
+
+    <h3 class="text-primary">Método de Runge-Kutta 4.º orden (h = 2)</h3>
+    <div class="table-responsive">
+      <table class="table table-dark table-bordered text-center">
+        <thead>
+        <tr><th>t</th><th>A(t)</th><th>k₁</th><th>k₂</th><th>k₃</th><th>k₄</th><th>h</th></tr>
+        </thead>
+        <tbody>
+        <tr><td>0</td><td>1.00000</td><td>0.51256</td><td>0.72788</td><td>0.81287</td><td>1.13983</td><td>2</td></tr>
+        <tr><td>2</td><td>2.57797</td><td>1.12341</td><td>1.48537</td><td>1.59240</td><td>2.04371</td><td>2</td></tr>
+        <tr><td>4</td><td>5.68552</td><td>2.02485</td><td>2.47515</td><td>2.56384</td><td>3.01425</td><td>2</td></tr>
+        <tr><td>6</td><td>10.72455</td><td>3.00103</td><td>3.38655</td><td>3.42742</td><td>3.71669</td><td>2</td></tr>
+        <tr><td>8</td><td>17.50644</td><td>3.71197</td><td>3.88462</td><td>3.88947</td><td>3.93013</td><td>2</td></tr>
+        <tr><td>10</td><td>25.23653</td><td>3.93040</td><td>3.85011</td><td>3.85289</td><td>3.66854</td><td>2</td></tr>
+        <tr><td>12</td><td>32.90484</td><td>3.67081</td><td>3.40566</td><td>3.42761</td><td>3.10943</td><td>2</td></tr>
+        <tr><td>14</td><td>39.72044</td><td>3.11348</td><td>2.76885</td><td>2.80961</td><td>2.45357</td><td>2</td></tr>
+        <tr><td>16</td><td>45.29509</td><td>2.45946</td><td>2.11915</td><td>2.16804</td><td>1.83929</td><td>2</td></tr>
+        <tr><td>18</td><td>49.58613</td><td>1.84621</td><td>1.55477</td><td>1.60185</td><td>1.33029</td><td>2</td></tr>
+        <tr><td>20</td><td>52.74938</td><td>1.33710</td><td>1.10797</td><td>1.14781</td><td>0.93875</td><td>2</td></tr>
+        <tr><td>22</td><td>55.01186</td><td>0.94467</td><td>0.77404</td><td>0.80515</td><td>0.65145</td><td>2</td></tr>
+        <tr><td>24</td><td>56.59670</td><td>0.65618</td><td>0.53352</td><td>0.55659</td><td>0.44699</td><td>2</td></tr>
+        <tr><td>26</td><td>57.69116</td><td>0.45055</td><td>0.36441</td><td>0.38095</td><td>0.30437</td><td>2</td></tr>
+        <tr><td>28</td><td>58.43970</td><td>0.30695</td><td>0.24738</td><td>0.25897</td><td>0.20620</td><td>2</td></tr>
+        </tbody>
+
+      </table>
+    </div>
+    <h3 class="text-info mt-5">Cuadro Comparativo entre Heun y Runge-Kutta 4</h3>
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-dark text-center">
+    <thead>
+      <tr>
+        <th>Tiempo (t)</th>
+        <th>A(t) Heun</th>
+        <th>A(t) Runge-Kutta 4</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>0</td><td>1.00000</td><td>1.00000</td></tr>
+      <tr><td>2</td><td>2.43824</td><td>2.57797</td></tr>
+      <tr><td>4</td><td>5.25330</td><td>5.68552</td></tr>
+      <tr><td>6</td><td>9.90435</td><td>10.72455</td></tr>
+      <tr><td>8</td><td>16.34998</td><td>17.50644</td></tr>
+      <tr><td>10</td><td>23.90792</td><td>25.23653</td></tr>
+      <tr><td>12</td><td>31.57361</td><td>32.90484</td></tr>
+      <tr><td>14</td><td>38.49832</td><td>39.72044</td></tr>
+      <tr><td>16</td><td>44.23485</td><td>45.29509</td></tr>
+      <tr><td>18</td><td>48.70189</td><td>49.58613</td></tr>
+      <tr><td>20</td><td>52.03371</td><td>52.74938</td></tr>
+      <tr><td>22</td><td>54.44643</td><td>55.01186</td></tr>
+      <tr><td>24</td><td>56.15873</td><td>56.59670</td></tr>
+      <tr><td>26</td><td>57.35739</td><td>57.69116</td></tr>
+      <tr><td>28</td><td>58.18873</td><td>58.43970</td></tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th>Total de Iteraciones para ambos metodos</th>
+        <td colspan="2">15</td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+
+    <section>
+    <h3 class="text-info text-center mt-5">Gráfica comparativa de A(t)</h3>
+    <canvas id="graficaCrecimiento" ></canvas>
+    </section>
+
+    <h3 class="text-warning mt-5">Conclusiones</h3>
+    <ul>
+      <li>Ambos métodos numéricos permiten aproximar la solución de la ecuación diferencial para el crecimiento tumoral, mostrando una evolución creciente de A(t) en el intervalo analizado.</li>
+      <li>El método de Runge-Kutta de 4.º orden produce valores más altos de A(t) y es generalmente más preciso debido a sus múltiples evaluaciones intermedias.</li>
+      <li>El método de Heun, siendo un método predictor-corrector, ofrece resultados razonablemente cercanos pero con menor precisión en comparación con Runge-Kutta 4.</li>
+      <li>La gráfica evidencia que ambas curvas crecen en forma similar pero con diferencias visibles, mostrando la importancia de elegir un método numérico adecuado según el nivel de precisión deseado.</li>
+      <li>El paso de integración h = 2 es relativamente grande; reducirlo podría mejorar la precisión, pero a costo computacional mayor.</li>
+    </ul>
+  </div>
+
+  <script>
+  const ctx = document.getElementById('graficaCrecimiento').getContext('2d');
+
+  const tiempos = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+
+  const rk4_completo = [
+    1.00000,
+    2.57797,
+    5.68552,
+    10.72455,
+    17.50644,
+    25.23653,
+    32.90484,
+    39.72044,
+    45.29509,
+    49.58613,
+    52.74938,
+    55.01186,
+    56.59670,
+    57.69116,
+    58.43970
+  ];
+
+  const heun_completo = [
+    1.00000,
+    2.43824,
+    5.25330,
+    9.90435,
+    16.34998,
+    23.90792,
+    31.57361,
+    38.49832,
+    44.23485,
+    48.70189,
+    52.03371,
+    54.44643,
+    56.15873,
+    57.35739,
+    58.18873
+  ];
+
+  const grafica = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: tiempos,
+      datasets: [
+        {
+          label: 'Runge-Kutta 4',
+          data: rk4_completo,
+          borderColor: 'rgba(54, 162, 235, 1)',
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          fill: false,
+          tension: 0.1
+        },
+        {
+          label: 'Heun',
+          data: heun_completo,
+          borderColor: 'rgba(255, 206, 86, 1)',
+          backgroundColor: 'rgba(255, 206, 86, 0.2)',
+          fill: false,
+          tension: 0.1
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { labels: { color: 'white' } }
+      },
+      scales: {
+        x: { ticks: { color: 'white' } },
+        y: { ticks: { color: 'white' } }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
